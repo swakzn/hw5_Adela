@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+    const [formData, setFormData] = useState({
+        key1: 'Barbara',
+        key2: 'Hepworth',
+        key3: 'bhepworth@react.com',
+        key4: 'love cats',
+    });
 
-export default App;
+    const handleInputChange = (event) => {
+        const { id, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value,
+        }));
+    };
+
+    return (
+        <div className="form-container">
+            <form>
+                {Object.entries(formData).map(([key, value]) => (
+                    <div className="form-group" key={key}>
+                        <label htmlFor={key}>{key}</label>
+                        <input
+                            type="text"
+                            id={key}
+                            value={value}
+                            onChange={handleInputChange}
+                        />
+                        <p className="form-data">{value}</p>
+                    </div>
+                ))}
+            </form>
+        </div>
+    );
+};
+export default App
